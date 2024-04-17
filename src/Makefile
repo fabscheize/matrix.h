@@ -40,6 +40,10 @@ gcov_report: $(PROJECT).a $(SOURCES) $(TESTS)
 style:
 	@clang-format -style=Google -n $(STYLEFILES)
 
+leaks: $(PROJECT).a $(TESTS)
+	$(CC) $(CFLAGS) $(CHECKFLAGS) $^ -o test.out
+	leaks -atExit -- ./test.out
+
 clean:
 	@rm -rf $(PROJECT).a ./tests/report ./build/* *.out *.gcda *.gcno *.info
 
