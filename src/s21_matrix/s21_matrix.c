@@ -2,9 +2,6 @@
 
 #include "s21_matrix_helpers.h"
 
-enum retutn_values { k_ok, k_invalid_matrix, k_calc_err };
-enum comparison { k_not_equal, k_equal };
-
 int s21_create_matrix(int rows, int columns, matrix_t *result) {
   int ret = k_ok;
 
@@ -18,7 +15,7 @@ int s21_create_matrix(int rows, int columns, matrix_t *result) {
       result->matrix[i] = result->matrix[0] + i * columns;
 
   } else {
-    ret = k_calc_err;
+    ret = k_invalid_matrix;
   }
 
   return ret;
@@ -35,7 +32,7 @@ int s21_eq_matrix(matrix_t *A, matrix_t *B) {
   if (A->rows == B->rows && A->columns == B->columns) {
     for (int i = 0; i < A->rows && ret == k_equal; i++) {
       for (int j = 0; j < A->columns && ret == k_equal; j++) {
-        ret = A->matrix[i][j] == B->matrix[i][j];
+        ret = roundl(A->matrix[i][j] * 1e7) == roundl(B->matrix[i][j] * 1e7);
       }
     }
   } else {
@@ -83,7 +80,7 @@ int s21_sub_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
 
 int s21_mult_number(matrix_t *A, double number, matrix_t *result) {
   int ret = k_ok;
-  
+
   s21_create_matrix(A->rows, A->columns, result);
 
   for (int i = 0; i < A->rows; i++) {
@@ -140,7 +137,7 @@ int s21_calc_complements(matrix_t *A, matrix_t *result) {
 
     for (int i = 0; i < A->rows; i++) {
       for (int j = 0; j < A->columns; j++) {
-        result->matrix[i][j] = minor(A, i, j) * pow(-1, i + j);
+        result->matrix[i][j] = calc_minor(A, i, j) * pow(-1, i + j);
       }
     }
   } else {
@@ -155,7 +152,7 @@ int s21_determinant(matrix_t *A, double *result) {
   if (A->rows == A->columns) {
     matrix_t A_copy = {0, 0, 0};
     duplicate_matrix(A, &A_copy);
-    *result = gauss_metod(A_copy.matrix, A_copy.rows);
+    *result = round(1e6 * gauss_metod(A_copy.matrix, A_copy.rows)) * 1e-6;
 
     s21_remove_matrix(&A_copy);
   } else {

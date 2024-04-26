@@ -2,6 +2,7 @@
 #define TEST_SUITECASES_H_
 
 #include <check.h>
+
 #include "../s21_matrix/s21_matrix_helpers.h"
 
 Suite *s21_create_matrix_suite(void);

@@ -23,7 +23,7 @@ void duplicate_matrix(matrix_t* A, matrix_t* result) {
   }
 }
 
-double minor(matrix_t* A, int row_to_delete, int column_to_delete) {
+double calc_minor(matrix_t* A, int row_to_delete, int column_to_delete) {
   double result = 0.0;
   matrix_t M = {0, 0, 0};
   s21_create_matrix(A->rows - 1, A->columns - 1, &M);
@@ -72,8 +72,7 @@ double gauss_metod(double** matrix, int n) {
     for (int j = i + 1; j < n; j++) {
       if (fabs(matrix[j][i]) > 1e-7) {
         for (int k = i + 1; k < n; k++) {
-          matrix[j][k] -=
-              matrix[i][k] / matrix[i][i] * matrix[j][i];
+          matrix[j][k] -= matrix[i][k] / matrix[i][i] * matrix[j][i];
         }
       }
     }
