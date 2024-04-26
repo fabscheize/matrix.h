@@ -10,7 +10,7 @@
 enum retutn_values { k_ok, k_invalid_matrix, k_calc_err };
 enum comparison { k_not_equal, k_equal };
 
-void print_matrix(matrix_t A);
+// void print_matrix(matrix_t A);
 void fill_matrix(matrix_t* A, double* data);
 void duplicate_matrix(matrix_t* A, matrix_t* result);
 double calc_minor(matrix_t* A, int row, int column);

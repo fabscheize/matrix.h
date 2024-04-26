@@ -1,13 +1,13 @@
 #include "s21_matrix_helpers.h"
 
-void print_matrix(matrix_t A) {
-  for (int i = 0; i < A.rows; i++) {
-    for (int j = 0; j < A.columns; j++) {
-      printf("%10lf ", A.matrix[i][j]);
-    }
-    putchar('\n');
-  }
-}
+// void print_matrix(matrix_t A) {
+//   for (int i = 0; i < A.rows; i++) {
+//     for (int j = 0; j < A.columns; j++) {
+//       printf("%10lf ", A.matrix[i][j]);
+//     }
+//     putchar('\n');
+//   }
+// }
 
 void fill_matrix(matrix_t* A, double* data) {
   for (int i = 0; i < A->rows * A->columns; i++) {
